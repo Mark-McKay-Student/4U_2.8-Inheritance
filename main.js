@@ -18,9 +18,17 @@ class BankAccount {
   #type = "Account";
   #balance = 0;
 
+  get type() {
+    return this.#type;
+  }
+
+  get balance() {
+    return this.#balance;
+  }
+
   debit(amt) {
     if (amt < 0 || amt > this.#balance) return 0;
-    balance -= lib.round(amt, 2);
+    this.#balance -= lib.round(amt, 2);
     return 1;
   }
 
@@ -33,9 +41,19 @@ class BankAccount {
   constructor(balance) {
     this.#balance = balance;
   }
+}
 
-  get type() {
-    return this.#type;
+class SavingsAccount extends BankAccount {
+  #interest_rate = 0.03;
+  #balance = 0;
+
+  constructor(bal) {
+    super(bal);
+    this.#balance = bal;
+  }
+
+  apply_interest() {
+    return (this.#balance += this.#balance * this.#interest_rate);
   }
 
   get balance() {
@@ -43,15 +61,5 @@ class BankAccount {
   }
 }
 
-class SavingsAccount {
-  #interest_rate = 0.03;
-
-  constructor(interest_rate, balance) {
-    balance = super(balance);
-    interest_rate = this.#interest_rate
-  }
-
-  apply_interest() {
-    return (super(balance) += balance * this.#interest_rate);
-  }
-}
+const test = new SavingsAccount(10);
+console.log(test.balance, test.apply_interest(), test.balance);

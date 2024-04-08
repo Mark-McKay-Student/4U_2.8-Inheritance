@@ -62,12 +62,13 @@ class SavingsAccount extends BankAccount {
   }
 
   set interest_rate(new_value) {
-    if (new_value > 0 && new_value < 1) this.#interest_rate = new_value;
+    if (new_value > 0 && new_value < 1)
+      this.#interest_rate = lib.round(new_value, 2);
     return this.#interest_rate;
   }
 
   apply_interest() {
-    this.credit(super.balance * this.#interest_rate);
+    this.credit(lib.round(super.balance * this.#interest_rate), 2);
     return super.balance;
   }
 }
@@ -85,7 +86,7 @@ class CheckingAccount extends BankAccount {
 
   set transaction_fee(new_transaction_fee) {
     if (new_transaction_fee > 0.01 && new_transaction_fee < 2)
-      this.#transaction_fee = new_transaction_fee;
+      this.#transaction_fee = lib.round(new_transaction_fee, 2);
     return this.#transaction_fee;
   }
 

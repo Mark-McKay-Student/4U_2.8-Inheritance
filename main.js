@@ -8,7 +8,7 @@
  * Author: Mark McKay
  */
 
-/* "use strict"; */
+"use strict";
 
 // The lib.round() function is available
 const lib = require("./library.js");
@@ -68,7 +68,9 @@ class SavingsAccount extends BankAccount {
   }
 
   apply_interest() {
-    this.credit(lib.round(super.balance * this.#interest_rate), 2);
+    console.log(super.balance, this.interest_rate);
+    this.credit(lib.round(super.balance * this.#interest_rate, 2));
+    console.log(super.balance, this.interest_rate);
     return super.balance;
   }
 }
